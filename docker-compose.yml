@@ -1,0 +1,18 @@
+version: '2'
+
+services:
+
+  app:
+    build:
+      context: .
+    # command: node_modules/nodemon/bin/nodemon.js --debug app/bin/server.js
+    volumes:
+      - "./src:/app/src"
+      - "./Makefile:/src/Makefile"
+    environment:
+      NODE_ENV: development
+    ports:
+      - "3072:8080"
+    logging:
+      options:
+        max-size: "5k"

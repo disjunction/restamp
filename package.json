@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "dependencies": {
     "commander": "^2.16.0",
-    "escape-string-regexp": "^1.0.5"
+    "escape-string-regexp": "^1.0.5",
+    "nodemon": "^1.17.5"
   },
   "devDependencies": {
     "jest": "^23.2.0",
