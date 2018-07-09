@@ -74,20 +74,30 @@ function makeTask (filename, adaptor, licenseLines) {
 }
 
 function executeTask (filename, task, licenseLines) {
+  const contents = helper.getFileContents(filename)
+  const newContents = executeTaskStr(contents, task, licenseLines)
+  if (newContents !== false) {
+    helper.putFileContents(filename, newContents)
+  }
+}
+
+function executeTaskStr (contents, task, licenseLines) {
   if (['a', 'm'].includes(task[0])) {
-    const contents = helper.getFileContents(filename)
     const lines = contents.split('\n')
     const newLines = lines
-      .slice(0, task[0])
+      .slice(0, task[1] - 1)
       .concat(licenseLines)
-      .concat(lines.slice(task[1]))
-    helper.putFileContents(filename, newLines.join('\n'))
+      .concat(lines.slice(task[2]))
+    return newLines.join('\n')
+  } else {
+    return false
   }
 }
 
 module.exports = {
   adaptorMap,
   executeTask,
+  executeTaskStr,
   findCandidates,
   getLangAdaptorByPath,
   getLangByPath,
