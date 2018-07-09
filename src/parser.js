@@ -51,20 +51,18 @@ function getAdaptorByPath (app, path) {
 }
 
 function findCandidates (app, path = process.cwd(), candidates = new Map()) {
-  fs.readdirSync(path)
-    .map(filename => `${path}/${filename}`)
-    .filter(validatePath)
-    .forEach(fullPath => {
-      const stat = fs.lstatSync(fullPath)
-      if (stat.isDirectory()) {
-        findCandidates(app, fullPath, candidates)
-      } else {
-        const adaptor = getAdaptorByPath(app, fullPath)
-        if (adaptor) {
-          candidates.set(fullPath, adaptor)
-        }
-      }
-    })
+  const stat = fs.lstatSync(path)
+  if (stat.isDirectory()) {
+    fs.readdirSync(path)
+      .map(filename => `${path}/${filename}`)
+      .filter(validatePath)
+      .forEach(fullPath => findCandidates(app, fullPath, candidates))
+  } else {
+    const adaptor = getAdaptorByPath(app, path)
+    if (adaptor) {
+      candidates.set(path, adaptor)
+    }
+  }
   return candidates
 }
 
@@ -85,7 +83,7 @@ function executeTaskStr (contents, task, licenseLines) {
   if (['a', 'm'].includes(task[0])) {
     const lines = contents.split('\n')
     const newLines = lines
-      .slice(0, task[1] - 1)
+      .slice(0, task[1])
       .concat(licenseLines)
       .concat(lines.slice(task[2]))
     return newLines.join('\n')
