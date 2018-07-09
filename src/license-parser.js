@@ -3,6 +3,13 @@
  * these are used by lang adaptors
  */
 const esr = require('escape-string-regexp')
+const helper = require('./helper')
+
+function readLicenseFile (path) {
+  const licenceContents = helper.getFileContents(path)
+  return licenceContents.split('\n')
+    .filter(line => line.trim().length)
+}
 
 function makeStartValidator (licenseLines) {
   const cleanStr = licenseLines[0].trim()
@@ -22,7 +29,14 @@ function makeEndValidator (licenseLines) {
   return str => regex.test(str)
 }
 
+function makeContentValidator (licenseLines) {
+  const joined = licenseLines.join('\n')
+  return candidLines => !!candidLines.join('\n').match(/c/i)
+}
+
 module.exports = {
   makeStartValidator,
-  makeEndValidator
+  makeEndValidator,
+  makeContentValidator,
+  readLicenseFile
 }
