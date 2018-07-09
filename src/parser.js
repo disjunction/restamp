@@ -68,13 +68,26 @@ function findCandidates (app, path = process.cwd(), candidates = new Map()) {
   return candidates
 }
 
-function makeTask (candidate, adaptor, licenseLines) {
-  const contents = helper.getFileContents(candidate)
+function makeTask (filename, adaptor, licenseLines) {
+  const contents = helper.getFileContents(filename)
   return adaptor.parseStr(contents, licenseLines)
+}
+
+function executeTask (filename, task, licenseLines) {
+  if (['a', 'm'].includes(task[0])) {
+    const contents = helper.getFileContents(filename)
+    const lines = contents.split('\n')
+    const newLines = lines
+      .slice(0, task[0])
+      .concat(licenseLines)
+      .concat(lines.slice(task[1]))
+    helper.putFileContents(filename, newLines.join('\n'))
+  }
 }
 
 module.exports = {
   adaptorMap,
+  executeTask,
   findCandidates,
   getLangAdaptorByPath,
   getLangByPath,

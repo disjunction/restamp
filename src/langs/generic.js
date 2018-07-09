@@ -46,7 +46,7 @@ class GenericLang {
   }
 
   findInsert (lines) {
-    return ['a', 0] // add the license starting from the first line
+    return ['a', 0, 0] // add the license starting from the first line
   }
 }
 

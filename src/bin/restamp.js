@@ -42,8 +42,8 @@ function main () {
 
   ;['verbose'].forEach(key => config[key] = commander[key]) // eslint-disable-line no-return-assign
 
+  const candidates = parser.findCandidates(app, detectedPath)
   if (commander.dryRun) {
-    const candidates = parser.findCandidates(app, detectedPath)
     Array.from(candidates.keys()).forEach(candidate => {
       const adaptor = candidates.get(candidate)
       const task = parser.makeTask(candidate, adaptor, licenseLines)
@@ -51,6 +51,17 @@ function main () {
       console.info(task[0].toUpperCase(), candidate)
     })
   } else {
-    throw new Error('only dryRun is supported')
+    Array.from(candidates.keys()).forEach(candidate => {
+      const adaptor = candidates.get(candidate)
+      const task = parser.makeTask(candidate, adaptor, licenseLines)
+      if (task[0] === '.') {
+        if (commander.verbose) {
+          console.info(task[0].toUpperCase(), candidate)
+        }
+        return
+      }
+      parser.executeTask(candidate, task, licenseLines)
+      console.info(task[0].toUpperCase(), candidate)
+    })
   }
 }
