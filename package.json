@@ -1,11 +1,11 @@
 {
   "name": "restamp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "add/modify license or copyright header in source files",
   "bin": {
-    "scurl": "src/bin/restamp.js"
+    "restamp": "src/bin/restamp.js"
   },
-  "main": "src/index.js",
+  "main": "src/parser.js",
   "dependencies": {
     "commander": "^2.16.0",
     "escape-string-regexp": "^1.0.5",
