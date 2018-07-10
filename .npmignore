@@ -1,0 +1,5 @@
+Makefile
+.dockerignore
+Dockerfile
+docker-compose.yml
+/test
