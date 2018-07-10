@@ -10,4 +10,6 @@ dc-lint:
 	docker-compose run app ./node_modules/standard/bin/cmd.js
 lint:
 	./node_modules/standard/bin/cmd.js
+test:
+	npm test
 	

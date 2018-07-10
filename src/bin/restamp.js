@@ -1,3 +1,4 @@
+#! /usr/bin/env node
 const packageJson = require('../../package.json')
 const parser = require('../parser')
 const licenseParser = require('../license-parser')

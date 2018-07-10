@@ -30,8 +30,7 @@ function makeEndValidator (licenseLines) {
 }
 
 function makeContentValidator (licenseLines) {
-  const joined = licenseLines.join('\n')
-  return candidLines => !!candidLines.join('\n').match(/c/i)
+  return candidLines => !!candidLines.join('\n').match(/\(c\)/i)
 }
 
 module.exports = {
