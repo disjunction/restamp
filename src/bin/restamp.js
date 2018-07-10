@@ -49,7 +49,7 @@ function main () {
       const adaptor = candidates.get(candidate)
       const task = parser.makeTask(candidate, adaptor, licenseLines)
       if (!commander.verbose && task[0] === '.') return
-      console.info(task[0].toUpperCase(), candidate, task)
+      console.info(task[0].toUpperCase(), candidate)
     })
   } else {
     Array.from(candidates.keys()).forEach(candidate => {
