@@ -1,6 +1,6 @@
 {
   "name": "restamp",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "add/modify license or copyright header in source files",
   "bin": {
     "restamp": "src/bin/restamp.js"
