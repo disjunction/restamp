@@ -61,7 +61,7 @@ function main () {
         }
         return
       }
-      parser.executeTask(candidate, task, licenseLines)
+      parser.executeTask(candidate, adaptor, task, licenseLines)
       console.info(task[0].toUpperCase(), candidate)
     })
   }

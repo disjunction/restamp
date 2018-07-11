@@ -49,6 +49,19 @@ class GenericLang {
   findInsert (lines) {
     return ['a', 0, 0] // add the license starting from the first line
   }
+
+  executeTask (contents, task, licenseLines) {
+    if (['a', 'm'].includes(task[0])) {
+      const lines = contents.split('\n')
+      const newLines = lines
+        .slice(0, task[1])
+        .concat(licenseLines)
+        .concat(lines.slice(task[2]))
+      return newLines.join('\n')
+    } else {
+      return false
+    }
+  }
 }
 
 module.exports = GenericLang

@@ -1,9 +1,12 @@
 const helper = require('./helper')
 const fs = require('fs')
-const genericLang = require('./langs/generic')
+
+const GenericLang = require('./langs/generic')
+const PhpLang = require('./langs/php')
 
 const adaptorMap = new Map([
-  ['js', genericLang]
+  ['js', GenericLang],
+  ['php', PhpLang]
 ])
 
 function getLangByPath (path) {
@@ -71,31 +74,17 @@ function makeTask (filename, adaptor, licenseLines) {
   return adaptor.parseStr(contents, licenseLines)
 }
 
-function executeTask (filename, task, licenseLines) {
+function executeTask (filename, adaptor, task, licenseLines) {
   const contents = helper.getFileContents(filename)
-  const newContents = executeTaskStr(contents, task, licenseLines)
+  const newContents = adaptor.executeTask(contents, task, licenseLines)
   if (newContents !== false) {
     helper.putFileContents(filename, newContents)
-  }
-}
-
-function executeTaskStr (contents, task, licenseLines) {
-  if (['a', 'm'].includes(task[0])) {
-    const lines = contents.split('\n')
-    const newLines = lines
-      .slice(0, task[1])
-      .concat(licenseLines)
-      .concat(lines.slice(task[2]))
-    return newLines.join('\n')
-  } else {
-    return false
   }
 }
 
 module.exports = {
   adaptorMap,
   executeTask,
-  executeTaskStr,
   findCandidates,
   getLangAdaptorByPath,
   getLangByPath,

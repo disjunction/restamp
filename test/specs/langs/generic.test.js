@@ -62,4 +62,29 @@ efg
       expect(result).toEqual(['m', 3, 6])
     })
   })
+
+  describe('executeTestStr()', () => {
+    it('replaces correct lines in the middle', () => {
+      const adaptor = new Adaptor({config: {maxLines: 1000}})
+      const str =
+`0 - abc
+1 - abc
+2 - abc
+####
+# license (c)
+####
+6 - abc
+7 - abc
+`
+      const result = adaptor.executeTask(str, ['m', 3, 6], ['zu', 'bu'])
+      expect(result).toBe(`0 - abc
+1 - abc
+2 - abc
+zu
+bu
+6 - abc
+7 - abc
+`)
+    })
+  })
 })
