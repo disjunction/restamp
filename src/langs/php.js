@@ -7,7 +7,7 @@ class PhpLang extends GenericLang {
       if (lines.length && lines[0] === '<?php') {
         return '<?php\n' + licenseLines.join('\n') + '\n' + lines.slice(1).join('\n')
       } else {
-        return '<?php\n' + licenseLines.join('\n') + '\nphp?>' + contents
+        return '<?php\n' + licenseLines.join('\n') + '\n?>' + contents
       }
     } else {
       return super.executeTask(contents, task, licenseLines)
