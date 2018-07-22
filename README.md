@@ -1,4 +1,6 @@
-A cli tool o add/modify license comment in source files
+A cli tool to add/modify license comment in source files
+
+Currentky it supports license inserted as /*...*/ comment. Tested with JS and PHP.
 
 Usage:
 
